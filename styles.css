@@ -350,11 +350,11 @@ footer {
 }
 
 footer > p {
-  margin: 2rem;
+  margin: 0rem;
 }
 
 footer i {
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 @media (max-width: 28.75em) {
