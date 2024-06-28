@@ -354,7 +354,7 @@ footer > p {
 }
 
 footer i {
-  vertical-align: bottom;
+  vertical-align: baseline;
 }
 
 @media (max-width: 28.75em) {
