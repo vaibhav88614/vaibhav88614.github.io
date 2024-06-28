@@ -339,7 +339,6 @@ input[type="submit"]:hover {
 
 
 /* Footer */
-
 footer {
   font-weight: 300;
   display: flex;
@@ -350,11 +349,11 @@ footer {
 }
 
 footer > p {
-  margin: 0rem;
+  margin: 2rem;
 }
 
 footer i {
-  vertical-align: baseline;
+  vertical-align: middle;
 }
 
 @media (max-width: 28.75em) {
