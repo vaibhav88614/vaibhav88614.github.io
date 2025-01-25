@@ -1,9 +1,13 @@
-/* Custom properties/variables  */
+/* Custom properties/variables */
 :root {
-  --main-white: #f0f0f0;
-  --main-red: #be3144;
-  --main-blue: #45567d;
-  --main-gray: #303841;
+  --main-white: #ffffff;
+  --main-red: #f26b38;  /* Slightly more vibrant red for a modern feel */
+  --main-blue: #1e3d58; /* A deeper, elegant blue */
+  --main-gray: #1c1f26; /* Darker shade for high contrast */
+  --accent-yellow: #f7c90b; /* Bright accent color for calls to action */
+  --link-hover: #ff7043; /* Hover color for interactive elements */
+  --form-background: #343a40; /* Dark background for forms to match the theme */
+  --button-hover: #f26b38; /* Consistent with primary accent */
 }
 
 /* Base reset */
@@ -12,7 +16,6 @@
   padding: 0;
 }
 
-/* box-sizing and font sizing */
 *,
 *::before,
 *::after {
@@ -21,45 +24,22 @@
 
 html {
   box-sizing: border-box;
-
-  /* Set font size for easy rem calculations
-   * default document font size = 16px, 1rem = 16px, 100% = 16px
-   * (100% / 16px) * 10 = 62.5%, 1rem = 10px, 62.5% = 10px
-  */
-  font-size: 62.5%;
+  font-size: 62.5%; /* 1rem = 10px */
   scroll-behavior: smooth;
 }
 
-/* A few media query to set some font sizes at different screen sizes.
- * This helps automate a bit of responsiveness.
- * The trick is to use the rem unit for size values, margin and padding.
- * Because rem is relative to the document font size
- * when we scale up or down the font size on the document
- * it will affect all properties using rem units for the values.
-*/
-
-/* I am using the em unit for breakpoints
- * The calculation is the following
- * screen size divided by browser base font size
- * As an example: a breakpoint at 980px
- * 980px / 16px = 61.25em
-*/
-
-/* 1200px / 16px = 75em */
 @media (max-width: 75em) {
   html {
     font-size: 60%;
   }
 }
 
-/* 980px / 16px = 61.25em */
 @media (max-width: 61.25em) {
   html {
     font-size: 58%;
   }
 }
 
-/* 460px / 16px = 28.75em */
 @media (max-width: 28.75em) {
   html {
     font-size: 55%;
@@ -67,13 +47,13 @@ html {
 }
 
 /* Base styles */
-
 body {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8rem; /* 18px */
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.6;
   color: var(--main-white);
+  background-color: var(--main-gray); /* Added background color for the body */
 }
 
 h1,
@@ -81,14 +61,17 @@ h2 {
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
   text-align: center;
+  color: var(--main-white); /* Improved header contrast */
 }
 
 h1 {
   font-size: 6rem;
+  text-transform: uppercase;
 }
 
 h2 {
   font-size: 4.2rem;
+  color: var(--accent-yellow); /* Added a bright accent color to make headers pop */
 }
 
 ul {
@@ -98,6 +81,11 @@ ul {
 a {
   text-decoration: none;
   color: var(--main-white);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--link-hover); /* Subtle color change on hover */
 }
 
 img {
@@ -105,8 +93,7 @@ img {
   width: 100%;
 }
 
-/* nav */
-
+/* Nav */
 .nav {
   display: flex;
   justify-content: flex-end;
@@ -114,8 +101,8 @@ img {
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--main-red);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
+  background: var(--main-blue);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
 
@@ -124,28 +111,19 @@ img {
   margin-right: 2rem;
 }
 
-@media (max-width: 28.75em) {
-  .nav {
-    justify-content: center;
-  }
-
-  .nav-list {
-    margin: 0 1rem;
-  }
-}
-
 .nav-list a {
   display: block;
   font-size: 2.2rem;
   padding: 2rem;
+  transition: background 0.3s ease;
 }
 
 .nav-list a:hover {
-  background: var(--main-blue);
+  background: var(--accent-yellow); /* Added hover effect to make navigation more engaging */
+  color: var(--main-gray);
 }
 
 /* Welcome section */
-
 .welcome-section {
   display: flex;
   flex-direction: column;
@@ -153,19 +131,18 @@ img {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #000;
-  background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+  background: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+  color: var(--main-white);
 }
 
 .welcome-section > p {
   font-size: 3rem;
   font-weight: 200;
   font-style: italic;
-  color: var(--main-red);
+  color: var(--accent-yellow); /* Changed to yellow for contrast */
 }
 
 /* Projects section */
-
 .projects-section {
   text-align: center;
   padding: 10rem 2rem;
@@ -178,13 +155,6 @@ img {
   border-bottom: 0.2rem solid var(--main-white);
 }
 
-@media (max-width: 28.75em) {
-  .projects-section-header {
-    font-size: 4rem;
-  }
-}
-
-/* "Automagic" image grid using no media queries */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -195,29 +165,17 @@ img {
   margin-bottom: 6rem;
 }
 
-@media (max-width: 30.625em) {
-  .projects-section {
-    padding: 6rem 1rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .project {
   background: var(--main-gray);
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  border-radius: 2px;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.code {
-  color: var(--main-gray);
-  transition: color 0.3s ease-out;
-}
-
-.project:hover .code {
-  color: #ff7f50;
+.project:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Subtle hover effect to make projects stand out */
 }
 
 .project-image {
@@ -227,38 +185,16 @@ img {
 }
 
 .project-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   padding: 2rem 0.5rem;
+  color: var(--main-white); /* Ensured the title has high contrast */
 }
 
-.btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 2px;
-}
-
-.btn-show-all {
-  font-size: 2rem;
-  background: var(--main-gray);
-  transition: background 0.3s ease-out;
-}
-
-.btn-show-all:hover {
-  background: var(--main-red);
-}
-
-.btn-show-all:hover > i {
-  transform: translateX(2px);
-}
-
-.btn-show-all > i {
-  margin-left: 10px;
-  transform: translateX(0);
-  transition: transform 0.3s ease-out;
+.project:hover .project-title {
+  color: var(--accent-yellow); /* Title changes to yellow on hover */
 }
 
 /* Contact section */
-
 .contact-section {
   display: flex;
   flex-direction: column;
@@ -273,16 +209,12 @@ img {
 
 .contact-section-header > h2 {
   font-size: 6rem;
-}
-
-@media (max-width: 28.75em) {
-  .contact-section-header > h2 {
-    font-size: 4rem;
-  }
+  color: var(--main-white);
 }
 
 .contact-section-header > p {
   font-style: italic;
+  color: var(--accent-yellow);
 }
 
 .contact-links {
@@ -298,48 +230,55 @@ img {
   font-size: 2.4rem;
   text-shadow: 2px 2px 1px #1f1f1f;
   transition: transform 0.3s ease-out;
+  color: var(--main-white);
 }
 
 .contact-details:hover {
   transform: translateY(8px);
+  color: var(--accent-yellow); /* Added hover effect for contrast */
 }
 
-
-
+/* Form */
 form {
   width: 300px;
   margin: 0 auto;
+  background: var(--form-background);
+  padding: 20px;
+  border-radius: 8px;
 }
 
-label, input, textarea {
+label,
+input,
+textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background: var(--main-white);
+  color: var(--main-gray);
 }
 
 input[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--accent-yellow);
+  color: var(--main-gray);
   border: none;
   cursor: pointer;
   padding: 10px 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: var(--main-red);
 }
 
-
-
-
 /* Footer */
-
 footer {
   font-weight: 300;
   display: flex;
@@ -347,6 +286,7 @@ footer {
   padding: 2rem;
   background: var(--main-gray);
   border-top: 4px solid var(--main-red);
+  color: var(--main-white);
 }
 
 footer > p {
