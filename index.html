@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vaibhav R Patil - Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -16,10 +19,10 @@
       href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap"
       rel="stylesheet"
     />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <!-- START NAV -->
-
     <nav id="navbar" class="nav">
       <ul class="nav-list">
         <li>
@@ -33,28 +36,24 @@
         </li>
       </ul>
     </nav>
-
     <!-- END NAV -->
 
     <!-- START WELCOME SECTION -->
-
     <section id="welcome-section" class="welcome-section">
-      <h1>Hey I am <strong>Vaibhav R Patil</strong></h1>
-      <p>a python developer</p>
+      <h1>Hey, I am <strong>Vaibhav R Patil</strong></h1>
+      <p>a Python developer</p>
     </section>
-
     <!-- END WELCOME SECTION -->
 
     <!-- START PROJECTS SECTION -->
-
     <section id="projects" class="projects-section">
       <h2 class="projects-section-header">These are some of my projects</h2>
-
-     
+      <!-- Placeholder for dynamically loaded project content -->
+      <div id="projects-list"></div>
+    </section>
     <!-- END PROJECTS SECTION -->
 
     <!-- START CONTACT SECTION -->
-
     <section id="contact" class="contact-section">
       <div class="contact-section-header">
         <h2>Let's work together...</h2>
@@ -68,64 +67,38 @@
           class="btn contact-details"
           ><i class="fab fa-github"></i> GitHub</a
         >
-        <a href="mailto:vaibhavrp614@gmail.com" class="btn contact-details"><i class="fas fa-at"></i> Send a mail</a
-        >
-        </div>
+        <a href="mailto:vaibhavrp614@gmail.com" class="btn contact-details"><i class="fas fa-at"></i> Send a mail</a>
+      </div>
     </section>
-
     <!-- END CONTACT SECTION -->
+
+    <!-- START FEEDBACK FORM SECTION -->
     <section>
-     <form id="feedbackForm" action="https://formspree.io/f/mwpknqpo" method="POST">
+      <form id="feedbackForm" action="https://formspree.io/f/mwpknqpo" method="POST">
         <h2>Feedback Form</h2>
         <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
         </div>
         <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
         </div>
         <div class="form-group">
-            <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" required></textarea>
+          <label for="feedback">Feedback:</label>
+          <textarea id="feedback" name="feedback" required></textarea>
         </div>
-        <input type="submit" value="Submit">
-    </form>
-    <script>
-      document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var formData = new FormData(this);
-
-        fetch(this.action, {
-          method: this.method,
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            alert('Thank you for your feedback!');
-            this.reset();
-          } else {
-            alert('There was a problem with your submission.');
-          }
-        });
-      });
-    </script>
-
+        <input type="submit" value="Submit" />
+      </form>
     </section>
+    <!-- END FEEDBACK FORM SECTION -->
 
-      
     <!-- START FOOTER SECTION -->
-
     <footer>
-      <p>
-        **This is a portfolio website of Vaibhav R Patil. 2024
-      </p>
-      
+      <p>**This is a portfolio website of Vaibhav R Patil. 2024</p>
     </footer>
-
     <!-- END FOOTER SECTION -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  </body>
 </html>
