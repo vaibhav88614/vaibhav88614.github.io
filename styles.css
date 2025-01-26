@@ -297,6 +297,7 @@ footer i {
 form {
   width: 300px;
   margin: 0 auto;
+  background-color:grey;
 }
 
 label, input, textarea {
@@ -321,4 +322,5 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #45a049;
+  color:black;
 }
