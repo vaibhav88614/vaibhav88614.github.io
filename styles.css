@@ -124,6 +124,7 @@ img {
 /* Welcome Section Background */
 /* Add styles for the slideshow effect */
 /* Slideshow Background */
+/* Add these to your existing CSS */
 #welcome-section {
   position: relative;
   width: 100%;
@@ -131,8 +132,13 @@ img {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: background-image 1s ease-in-out; /* Smooth transition */
+  transition: background-image 1s ease-in-out;
+  /* Add overlay for better text visibility */
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: multiply;
 }
+
+/* Keep existing .welcome-section styles */
 
 
 
