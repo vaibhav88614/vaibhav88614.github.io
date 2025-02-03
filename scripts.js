@@ -54,3 +54,39 @@ document.addEventListener('DOMContentLoaded', function() {
     projectsList.appendChild(projectElement);
   });
 });
+const totalImages = 298; // Adjust this number
+const basePath = './images/1/fig('; // Base path
+const imageExtension = ').png'; // File extension
+
+const imagePaths = Array.from({ length: totalImages }, (_, i) => `${basePath}${i + 1}${imageExtension}`);
+let currentImageIndex = 0;
+
+function changeBackground() {
+    const welcomeSection = document.getElementById('welcome-section');
+    
+    const nextImage = imagePaths[currentImageIndex];
+    welcomeSection.style.backgroundImage = `url('${nextImage}')`;
+    
+    console.log(`Changing background to: ${nextImage}`);
+    
+    // Determine delay: 5 seconds for the last image, 0.1 seconds otherwise
+    let delay = (currentImageIndex === imagePaths.length - 1) ? 5000 : 100;
+    
+    // Move to the next image after the delay
+    setTimeout(() => {
+        currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+        changeBackground();
+    }, delay);
+}
+
+// Preload images
+function preloadImages(images) {
+    images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
+preloadImages(imagePaths);
+changeBackground();
+
