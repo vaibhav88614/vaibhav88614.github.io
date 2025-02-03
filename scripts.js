@@ -53,30 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     projectsList.appendChild(projectElement);
   });
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const imageCount = 298; // Adjust to your total number of images
-    const basePath = "./images/1/fig("; // Path to your images
-    const imageExtension = ").png"; // Image format
+// Combine with your existing JS
 
+    // Slideshow functionality
+    const imageCount = 298;
+    const basePath = "./images/1/fig(";
+    const imageExtension = ").png";
     let currentIndex = 0;
     const welcomeSection = document.getElementById("welcome-section");
 
-    function changeBackground() {
-        const imageUrl = `${basePath}${currentIndex + 1}${imageExtension}`;
-
-        // Update background image
-        welcomeSection.style.backgroundImage = `url('${imageUrl}')`;
-
-        console.log(`Background updated to: ${imageUrl}`);
-
-        currentIndex = (currentIndex + 1) % imageCount; // Loop back to first image
-
-        // Change every 3 seconds
-        setTimeout(changeBackground, 3000);
-    }
-
-    // Preload images for smooth transitions
+    // Preload images
     function preloadImages() {
         for (let i = 1; i <= imageCount; i++) {
             const img = new Image();
@@ -84,6 +70,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Improved transition effect
+    function changeBackground() {
+        welcomeSection.style.opacity = 0;
+        
+        setTimeout(() => {
+            const imageUrl = `${basePath}${currentIndex + 1}${imageExtension}`;
+            welcomeSection.style.backgroundImage = `url('${imageUrl}')`;
+            welcomeSection.style.opacity = 1;
+            
+            currentIndex = (currentIndex + 1) % imageCount;
+            setTimeout(changeBackground, 3000);
+        }, 500); // Half-second transition time
+    }
+
     preloadImages();
-    changeBackground(); // Start slideshow
+    changeBackground();
 });
