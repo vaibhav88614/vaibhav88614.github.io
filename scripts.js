@@ -55,35 +55,62 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 // Combine with your existing JS
 
-    // Slideshow functionality
-    const imageCount = 298;
+   const imageCount = 298;
     const basePath = "./images/1/fig(";
     const imageExtension = ").png";
     let currentIndex = 0;
     const welcomeSection = document.getElementById("welcome-section");
+    let isSlideshowActive = true;
 
-    // Preload images
+    // Preload images with error handling
     function preloadImages() {
         for (let i = 1; i <= imageCount; i++) {
             const img = new Image();
             img.src = `${basePath}${i}${imageExtension}`;
+            img.onerror = () => console.error(`Failed to load image: ${img.src}`);
         }
     }
 
-    // Improved transition effect
+    // Improved transition with requestAnimationFrame
     function changeBackground() {
-        welcomeSection.style.opacity = 0;
+        if (!isSlideshowActive) return;
+
+        const imageUrl = `${basePath}${currentIndex + 1}${imageExtension}`;
         
-        setTimeout(() => {
-            const imageUrl = `${basePath}${currentIndex + 1}${imageExtension}`;
+        // Create temporary image to load before switching
+        const tempImg = new Image();
+        tempImg.src = imageUrl;
+        
+        tempImg.onload = () => {
             welcomeSection.style.backgroundImage = `url('${imageUrl}')`;
-            welcomeSection.style.opacity = 1;
-            
             currentIndex = (currentIndex + 1) % imageCount;
+            
+            // Schedule next change
             setTimeout(changeBackground, 3000);
-        }, 500); // Half-second transition time
+        };
+
+        tempImg.onerror = () => {
+            console.error(`Skipping missing image: ${imageUrl}`);
+            currentIndex = (currentIndex + 1) % imageCount;
+            changeBackground();
+        };
     }
 
+    // Start the slideshow
+    function startSlideshow() {
+        isSlideshowActive = true;
+        changeBackground();
+    }
+
+    // Initial setup
     preloadImages();
-    changeBackground();
+    startSlideshow();
+
+    // Optional: Add pause/play control
+    document.addEventListener('keypress', (e) => {
+        if (e.code === 'Space') {
+            isSlideshowActive = !isSlideshowActive;
+            if (isSlideshowActive) startSlideshow();
+        }
+    });
 });
