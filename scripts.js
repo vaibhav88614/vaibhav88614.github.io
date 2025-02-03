@@ -55,35 +55,35 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 document.addEventListener("DOMContentLoaded", function () {
-  const totalImages = 298; // Total number of images
-  const basePath = "./images/1/fig("; // Path to images
-  const imageExtension = ").png"; // Image file extension
-  const imagePaths = Array.from({ length: totalImages }, (_, i) => `${basePath}${i + 1}${imageExtension}`);
-  
-  let currentImageIndex = 0;
-  const welcomeSection = document.getElementById("welcome-section");
+    const imageCount = 298; // Adjust to your total number of images
+    const basePath = "./images/1/fig("; // Path to your images
+    const imageExtension = ").png"; // Image format
 
-  function changeBackground() {
-    const nextImage = imagePaths[currentImageIndex];
-    welcomeSection.style.backgroundImage = `url('${nextImage}')`;
+    let currentIndex = 0;
+    const welcomeSection = document.getElementById("welcome-section");
 
-    console.log(`Background changed to: ${nextImage}`);
+    function changeBackground() {
+        const imageUrl = `${basePath}${currentIndex + 1}${imageExtension}`;
 
-    currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+        // Update background image
+        welcomeSection.style.backgroundImage = `url('${imageUrl}')`;
 
-    // Keep the last image for 5 seconds, others for 100ms
-    let delay = (currentImageIndex === imagePaths.length - 1) ? 5000 : 100;
-    setTimeout(changeBackground, delay);
-  }
+        console.log(`Background updated to: ${imageUrl}`);
 
-  // Preload images for smooth transitions
-  function preloadImages(images) {
-    images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }
+        currentIndex = (currentIndex + 1) % imageCount; // Loop back to first image
 
-  preloadImages(imagePaths);
-  changeBackground(); // Start the slideshow
+        // Change every 3 seconds
+        setTimeout(changeBackground, 3000);
+    }
+
+    // Preload images for smooth transitions
+    function preloadImages() {
+        for (let i = 1; i <= imageCount; i++) {
+            const img = new Image();
+            img.src = `${basePath}${i}${imageExtension}`;
+        }
+    }
+
+    preloadImages();
+    changeBackground(); // Start slideshow
 });
