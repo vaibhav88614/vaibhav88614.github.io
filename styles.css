@@ -123,6 +123,7 @@ img {
 /* Welcome Section */
 /* Welcome Section Background */
 /* Add styles for the slideshow effect */
+/* Slideshow Background */
 #welcome-section {
   position: relative;
   width: 100%;
@@ -132,6 +133,7 @@ img {
   background-repeat: no-repeat;
   transition: background-image 1s ease-in-out; /* Smooth transition */
 }
+
 
 
 
