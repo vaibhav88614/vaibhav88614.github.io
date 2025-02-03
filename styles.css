@@ -122,19 +122,17 @@ img {
 
 /* Welcome Section */
 /* Welcome Section Background */
-.welcome-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Add styles for the slideshow effect */
+#welcome-section {
+  position: relative;
   width: 100%;
   height: 100vh;
-  background-color: black;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: background-image 0.5s ease-in-out;
+  transition: background-image 1s ease-in-out; /* Smooth transition */
 }
+
 
 
 .welcome-section > p {
