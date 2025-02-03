@@ -54,39 +54,38 @@ document.addEventListener('DOMContentLoaded', function() {
     projectsList.appendChild(projectElement);
   });
 });
-const totalImages = 298; // Adjust this number
-const basePath = './images/1/fig('; // Base path
-const imageExtension = ').png'; // File extension
-
-const imagePaths = Array.from({ length: totalImages }, (_, i) => `${basePath}${i + 1}${imageExtension}`);
-let currentImageIndex = 0;
-
-function changeBackground() {
+document.addEventListener('DOMContentLoaded', function () {
+    const totalImages = 298; // Adjust this number based on your images
+    const basePath = './images/1/fig('; // Base path
+    const imageExtension = ').png'; // File extension
+    const imagePaths = Array.from({ length: totalImages }, (_, i) => `${basePath}${i + 1}${imageExtension}`);
+    
+    let currentImageIndex = 0;
     const welcomeSection = document.getElementById('welcome-section');
-    
-    const nextImage = imagePaths[currentImageIndex];
-    welcomeSection.style.backgroundImage = `url('${nextImage}')`;
-    
-    console.log(`Changing background to: ${nextImage}`);
-    
-    // Determine delay: 5 seconds for the last image, 0.1 seconds otherwise
-    let delay = (currentImageIndex === imagePaths.length - 1) ? 5000 : 100;
-    
-    // Move to the next image after the delay
-    setTimeout(() => {
-        currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
-        changeBackground();
-    }, delay);
-}
+  
+    function changeBackground() {
+        if (!welcomeSection) return;
 
-// Preload images
-function preloadImages(images) {
-    images.forEach((src) => {
-        const img = new Image();
-        img.src = src;
-    });
-}
+        const nextImage = imagePaths[currentImageIndex];
+        welcomeSection.style.backgroundImage = `url('${nextImage}')`;
+        
+        console.log(`Changing background to: ${nextImage}`);
 
-preloadImages(imagePaths);
-changeBackground();
+        // If it's the last image, wait 5 seconds; otherwise, switch every 0.1s
+        let delay = (currentImageIndex === totalImages - 1) ? 5000 : 100;
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
 
+        setTimeout(changeBackground, delay);
+    }
+
+    // Preload images to avoid flickering
+    function preloadImages(images) {
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+
+    preloadImages(imagePaths);
+    changeBackground(); // Start slideshow
+});
