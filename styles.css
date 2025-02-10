@@ -146,9 +146,9 @@ img {
   left: -75px;
   width: 105%;
   height: 95vh;
-  background-size:cover;
+  background-size:auto;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   transition: background-image 1s ease-in-out;
   /* Add overlay for better text visibility */
   background-color: rgba(0, 0, 0, 0.1);
