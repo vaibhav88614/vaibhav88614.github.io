@@ -48,6 +48,7 @@ body.dark-mode .welcome-section .content {
 body.dark-mode .projects-section { background: #1a237e; }
 body.dark-mode .certifications-section { background: #1c1c1c; }
 body.dark-mode .contact-section { background: #1c1c1c; }
+body.dark-mode .feedback-section { background: #1c1c1c; }
 body.dark-mode footer { background: #1c1c1c; }
 
 /* Dark/Light Mode Toggle Button - fixed top right */
@@ -322,10 +323,18 @@ body.dark-mode footer { background: #1c1c1c; }
 #feedbackForm {
   max-width: 600px;
   margin: 0 auto;
+  width:80vh;
   background: #f9f9f9;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.feedback-section {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  background: var(--main-gray);
+  text-align: center;
 }
 #feedbackForm h2 {
   font-size: 2.5rem;
