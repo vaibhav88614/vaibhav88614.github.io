@@ -114,9 +114,9 @@ body.dark-mode footer { background: #1c1c1c; }
   width: 550px;          /* Fill the container's width */
   max-width: 800px;      /* Remove max-width restriction */
   /* text-align: center;     Align text to the left */
-  text-align: center;
-  margin: 0 auto;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
