@@ -45,7 +45,7 @@ body.dark-mode .welcome-section .content {
   background: rgba(0, 0, 0, 0.7);
   color: var(--main-white);
 }
-body.dark-mode .projects-section { background: #1a237e; }
+body.dark-mode .projects-section { background: #1c1c1c; }
 body.dark-mode .certifications-section { background: #1c1c1c; }
 body.dark-mode .contact-section { background: #1c1c1c; }
 body.dark-mode .feedback-section { background: #1c1c1c; }
@@ -65,7 +65,7 @@ body.dark-mode footer { background: #1c1c1c; }
   z-index: 30;
   transition: background 0.3s;
 }
-.mode-toggle:hover { background: var(--main-blue); }
+.mode-toggle:hover { background: white; color:#000 }
 
 /* Scroll-to-Top Button */
 .scroll-to-top {
@@ -120,6 +120,10 @@ body.dark-mode footer { background: #1c1c1c; }
 
 }
 
+a:-webkit-any-link {
+  color: #ffffff;
+  cursor: pointer;
+}
 
 /* Navigation Styles */
 .nav {
@@ -256,7 +260,6 @@ body.dark-mode footer { background: #1c1c1c; }
   font-size: 1.8rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
-  text-transform: uppercase;
   transition: background 0.3s;
   border: none;
   cursor: pointer;
@@ -268,6 +271,9 @@ body.dark-mode footer { background: #1c1c1c; }
   text-align: center;
   white-space: nowrap; /* Prevent text wrapping if desired */
   
+}
+a:-webkit-any-link {
+  text-decoration: None;
 }
 .certificate .btn:hover { background: var(--main-blue); }
 .hidden { display: none; }
@@ -316,8 +322,14 @@ body.dark-mode footer { background: #1c1c1c; }
   transition: transform 0.3s;
   text-decoration: none;
 }
-.contact-details:hover { transform: translateY(8px); }
+.contact-details:hover { transform: translateY(8px);}
 .fab, .fas { font-size: 1.2em; }
+a.btn.contact-details {
+  color: #ffffff;
+}
+a.btn.contact-details:hover {
+  color: #000000;
+}
 
 /* Feedback Form */
 #feedbackForm {
@@ -359,6 +371,7 @@ input, textarea {
   border-radius: 5px;
   background: #fff;
   transition: border-color 0.3s;
+  padding-left: 2rem;
 }
 input:focus, textarea:focus {
   border-color: #be3144;
@@ -377,7 +390,7 @@ input[type="submit"] {
   transition: background 0.3s;
   width: 100%;
 }
-input[type="submit"]:hover { background: #45567d; }
+input[type="submit"]:hover { background: #45567d;}
 @media (max-width: 768px) {
   #feedbackForm { padding: 1.5rem; }
   #feedbackForm h2 { font-size: 2rem; }
