@@ -113,8 +113,8 @@ body.dark-mode footer { background: #1c1c1c; }
   margin: auto;       /* Remove auto margins so it's left aligned */
   width: 550px;          /* Fill the container's width */
   max-width: 800px;      /* Remove max-width restriction */
-  /* text-align: center;     Align text to the left */
-  display: flex;
+  text-align: center ; /*      Align text to the left */ 
+  /* display: flex; */
   align-items: center;
   justify-content: center;
 
