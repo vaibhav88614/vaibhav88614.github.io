@@ -1,12 +1,11 @@
-import { Github, Linkedin, Twitter, Instagram, Heart } from 'lucide-react';
+import { Github, Linkedin, Twitter, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const socialLinks = [
-    { name: 'GitHub', icon: <Github size={20} />, url: 'https://github.com/codetechie-abhay' },
-    { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://linkedin.com/in/abhay-nautiyal' },
-    { name: 'Twitter', icon: <Twitter size={20} />, url: 'https://twitter.com/abhay_nautiyal' },
-    { name: 'Instagram', icon: <Instagram size={20} />, url: 'https://instagram.com/abhay_nautiyal' },
+  { name: 'GitHub', icon: <Github size={20} />, url: 'https://github.com/vaibhav88614' },
+  { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/vaibhavrp614/' },
+  { name: 'Twitter', icon: <Twitter size={20} />, url: 'https://twitter.com' },
   ];
 
   return (
@@ -15,7 +14,10 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and Description */}
           <div className="text-center md:text-left">
-            <h3 className="text-2xl font-bold text-primary mb-2">0xA13H4Y</h3>
+            <h3 className="text-2xl font-bold text-primary mb-2 leading-tight">
+              <span>0xV41BH4V</span>
+              <span className="block text-base tracking-widest text-muted-foreground">0xV41BH4V</span>
+            </h3>
             <p className="text-muted-foreground">
               Tech Enthusiast | Web Development & ML
             </p>

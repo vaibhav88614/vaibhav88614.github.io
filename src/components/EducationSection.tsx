@@ -6,7 +6,7 @@ const EducationSection = () => {
   const education = [
     {
       degree: 'Master of Technology (M.Tech) in Computer Science Engineering',
-      institution: 'Govind Ballabh Pant Institute of Engineering & Technology (GBPIET)',
+      institution: ' ()',
       duration: '2024-2026',
       status: 'Pursuing',
       specialization: 'Computer Science Engineering (CSE)',
@@ -14,7 +14,7 @@ const EducationSection = () => {
     },
     {
       degree: 'Bachelor of Engineering (B.Tech) in Computer Science',
-      institution: 'Govind Ballabh Pant Institute of Engineering & Technology (GBPIET)',
+      institution: ' ()',
       duration: '2020-2024',
       status: 'Completed',
       marks: '4257/5401',
@@ -23,7 +23,7 @@ const EducationSection = () => {
     },
     {
       degree: 'Intermediate (12th)',
-      institution: 'Uttarakhand Board of School Education (UBSE)',
+      institution: 'KSSEB',
       duration: '2019-2020',
       status: 'Completed',
       subjects: 'Science',
@@ -33,7 +33,7 @@ const EducationSection = () => {
     },
     {
       degree: 'High School (10th)',
-      institution: 'Uttarakhand Board of School Education (UBSE)',
+      institution: 'KSSEB',
       duration: '2017-2018',
       status: 'Completed',
       marks: '435/500',

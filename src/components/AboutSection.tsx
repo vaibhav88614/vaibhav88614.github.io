@@ -21,7 +21,7 @@ const AboutSection = () => {
                 className="w-80 h-80 object-cover rounded-2xl border-4 border-primary/20"
               />
               <div className="absolute -bottom-4 -right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-bold">
-                M.Tech CSE
+                
               </div>
             </div>
           </div>
@@ -29,9 +29,9 @@ const AboutSection = () => {
           {/* About Content */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-3xl font-bold text-primary mb-4">I'm 0xA13H4Y</h3>
+              <h3 className="text-3xl font-bold text-primary mb-4 flex flex-col leading-tight">I'm <span>0xV41BH4V</span><span className="text-base tracking-widest text-muted-foreground">0xV41BH4V</span></h3>
               <h4 className="text-xl text-muted-foreground mb-6">
-                M.Tech CSE Enthusiast | Web Development & ML 🖥️🤖
+                 Enthusiast | Web Development & ML 🖥️🤖
               </h4>
             </div>
 
@@ -41,7 +41,7 @@ const AboutSection = () => {
             </blockquote>
 
             <p className="text-foreground leading-relaxed">
-              M.Tech CSE Student @ GBPIET 🎓. Passionate about Web Development & Machine Learning 🚀. 
+               Student @  🎓. Passionate about Web Development & Machine Learning 🚀. 
               Always eager to explore new technologies and push the boundaries of what's possible! 💡
             </p>
 
@@ -50,15 +50,15 @@ const AboutSection = () => {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <GraduationCap className="text-primary" size={20} />
-                    <span><strong>College:</strong> Govind Ballabh Pant Institute of Engineering & Technology</span>
+                    <span><strong>College:</strong> </span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="text-primary" size={20} />
-                    <span><strong>Email:</strong> abhaynautiyal002@gmail.com</span>
+                    <span><strong>Email:</strong> vaibhavrp614@gmail.com</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <MapPin className="text-primary" size={20} />
-                    <span><strong>Place:</strong> Pokhra, Pauri-Garhwal, Uttarakhand - 246169</span>
+                    <span><strong>Place:</strong> Karnataka,India</span>
                   </div>
                 </div>
               </CardContent>

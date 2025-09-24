@@ -17,7 +17,7 @@ const ExperienceSection = () => {
         'Check out my internship experience on LinkedIn.'
       ],
       icon: '💼',
-      link: 'https://www.linkedin.com/posts/abhay-nautiyal-722b24228_internshipcomplete-fullstackdeveloper-nextgenemployability-activity-7190574520238239745-MIOl'
+      link: 'https://www.linkedin.com/posts/abhay-Patil-722b24228_internshipcomplete-fullstackdeveloper-nextgenemployability-activity-7190574520238239745-MIOl'
     },
     {
       company: 'Ensino',

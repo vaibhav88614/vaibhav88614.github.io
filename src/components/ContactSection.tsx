@@ -3,47 +3,41 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
 
 const ContactSection = () => {
   const contactInfo = [
     {
-      icon: <Mail className="text-primary" size={24} />,
+      icon: <Mail className="text-primary" size={24} />, 
       title: 'Email',
-      value: 'abhaynautiyal002@gmail.com',
-      link: 'mailto:abhaynautiyal002@gmail.com'
+      value: 'vaibhavrp614@gmail.com',
+      link: 'mailto:vaibhavrp614@gmail.com'
     },
     {
-      icon: <MapPin className="text-primary" size={24} />,
+      icon: <MapPin className="text-primary" size={24} />, 
       title: 'Location',
-      value: 'Pokhra, Pauri-Garhwal, Uttarakhand - 246169'
+      value: 'Karnataka,India'
     }
   ];
 
   const socialLinks = [
     {
       name: 'LinkedIn',
-      icon: <Linkedin size={24} />,
-      url: 'https://linkedin.com/in/abhay-nautiyal',
+      icon: <Linkedin size={24} />, 
+      url: 'https://www.linkedin.com/in/vaibhavrp614/',
       color: 'hover:text-blue-500'
     },
     {
       name: 'GitHub',
-      icon: <Github size={24} />,
-      url: 'https://github.com/codetechie-abhay',
+      icon: <Github size={24} />, 
+      url: 'https://github.com/vaibhav88614',
       color: 'hover:text-gray-400'
     },
     {
       name: 'Twitter',
-      icon: <Twitter size={24} />,
-      url: 'https://twitter.com/abhay_nautiyal',
+      icon: <Twitter size={24} />, 
+      url: 'https://twitter.com',
       color: 'hover:text-blue-400'
-    },
-    {
-      name: 'Instagram',
-      icon: <Instagram size={24} />,
-      url: 'https://instagram.com/abhay_nautiyal',
-      color: 'hover:text-pink-500'
     }
   ];
 

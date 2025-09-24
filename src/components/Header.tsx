@@ -20,8 +20,9 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="text-xl font-bold text-primary">
-            0xA13H4Y
+          <div className="text-xl font-bold text-primary flex flex-col leading-tight">
+            <span>0xV41BH4V</span>
+            <span className="text-base tracking-widest text-muted-foreground">VAIBHAV</span>
           </div>
 
           {/* Desktop Navigation */}
