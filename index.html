@@ -1,187 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vaibhav R Patil Portfolio</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link 
-      rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" 
-      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" 
-      crossorigin="anonymous">
+    <title>Vaibhav Patil | Tech Enthusiast | Web Developer & ML Engineer</title>
+    <meta name="description" content="M.Tech CSE Student passionate about Web Development & Machine Learning. Portfolio showcasing projects, skills, and experience in full-stack development." />
+    <meta name="author" content="Vaibhav Patil" />
+    <meta name="keywords" content="Vaibhav Patil, Web Developer, Machine Learning, React, Node.js, Portfolio, M.Tech CSE, GBPIET" />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/png" href="images/letter-v.png" />
+    <meta property="og:title" content="Vaibhav Patil | Tech Enthusiast Portfolio" />
+    <meta property="og:description" content="M.Tech CSE Student passionate about Web Development & Machine Learning. View my projects and experience." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/src/assets/profile-photo.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@vaibhavpatil" />
+    <meta name="twitter:image" content="/src/assets/profile-photo.jpg" />
   </head>
+
   <body>
-    <!-- Dark/Light Mode Toggle (fixed to top-right) -->
-    <button id="modeToggle" class="mode-toggle">Dark Mode</button>
-
-    <!-- Scroll-to-Top Button -->
-    <button id="scrollToTopBtn" class="scroll-to-top">
-      <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- START NAVIGATION -->
-    <header>
-      <nav id="navbar" class="nav">
-        <ul class="nav-list">
-          <li><a href="#welcome-section" class="nav-link">About</a></li>
-          <li><a href="#projects" class="nav-link">Work</a></li>
-          <li>
-            <a href="#certifications" class="nav-link">Certifications</a>
-          </li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- END NAVIGATION -->
-
-    <main>
-      <!-- START WELCOME SECTION -->
-      <section id="welcome-section" class="welcome-section">
-        <!-- Background Video -->
-        <video autoplay muted loop playsinline class="bg-video">
-          <source src="images/back_video.webm" type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
-        <div class="content">
-          <h2>Hi, Welcome to My Portfolio</h2>
-          <h1>I am <br />Vaibhav R Patil</h1>
-          <h3>I'm a Python Developer.</h3>
-          <button id="pause-play-btn">Pause</button>
-          <div class="progress-bar">
-            <div class="progress"></div>
-          </div>
-        </div>
-      </section>
-      <!-- END WELCOME SECTION -->
-
-      <!-- START PROJECTS SECTION -->
-      <section id="projects" class="projects-section">
-        <h2 class="projects-section-header">These are some of my projects</h2>
-        <div class="projects-grid">
-          <div class="project">
-            <img
-              class="project-image"
-              src="images/weather_app.png"
-              alt="Weather App"
-            />
-            <div class="project-title">Weather App</div>
-            <p class="project-description">
-              A Python application to get real-time weather updates.
-            </p>
-            <!-- The button is hidden by default; appears centered on hover -->
-            <button class="btn project-btn">View Project</button>
-          </div>
-          <div class="project">
-            <img
-              class="project-image"
-              src="images/to-do-list.jpeg"
-              alt="To-Do List Web App"
-            />
-            <div class="project-title">To-Do List Web App</div>
-            <p class="project-description">
-              A full-stack Python web application for managing tasks.
-            </p>
-            <button class="btn project-btn">View Project</button>
-          </div>
-        </div>
-      </section>
-      <!-- END PROJECTS SECTION -->
-
-      <!-- START CERTIFICATIONS SECTION -->
-      <section id="certifications" class="certifications-section">
-        <h2 class="certifications-section-header">
-          These are some of my Certificates
-        </h2>
-        <div class="certificates-grid">
-          <!-- Certificate cards will be injected dynamically via JS -->
-        </div>
-        <button id="toggleCertificatesBtn" class="btn toggle-btn">
-          Show More
-        </button>
-      </section>
-      <!-- END CERTIFICATIONS SECTION -->
-
-      <!-- START CONTACT SECTION -->
-      <section id="contact" class="contact-section">
-        <div class="contact-section-header">
-          <h2>Let's work together...</h2>
-          <p></p>
-        </div>
-        <div class="contact-links">
-          <a
-            id="profile-link"
-            href="https://github.com/vaibhav88614"
-            target="_blank"
-            class="btn contact-details"
-            ><i class="fab fa-github"></i> GitHub</a
-          >
-          <a
-            id="linkedin-link"
-            href="https://www.linkedin.com/in/vaibhavrp614/"
-            target="_blank"
-            class="btn contact-details"
-            ><i class="fab fa-linkedin"></i> LinkedIn </a
-            >
-          <a href="mailto:vaibhavrp614@gmail.com" class="btn contact-details"
-            ><i class="fas fa-at"></i> Send a mail</a
-          >
-        </div>
-      </section>
-      <!-- END CONTACT SECTION -->
-
-      <!-- FEEDBACK FORM -->
-      <section id="feedback" class="feedback-section">
-        <form
-          id="feedbackForm"
-          action="https://formspree.io/f/mwpknqpo"
-          method="POST"
-        >
-          <h2>Feedback Form</h2>
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-          <div class="form-group">
-            <label for="feedback">Feedback:</label>
-            <textarea id="feedback" name="feedback" required></textarea>
-          </div>
-          <input type="submit" value="Submit" />
-        </form>
-      </section>
-    </main>
-
-    <!-- Modal for Expanded Certificate View -->
-    <div id="certificateModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <img id="modalImage" src="" alt="Certificate" />
-      </div>
-    </div>
-
-    <!-- START FOOTER SECTION -->
-    <footer>
-      <p>**This is a portfolio website of Vaibhav R Patil. 2024</p>
-    </footer>
-    <!-- END FOOTER SECTION -->
-
-    <script src="scripts.js" data-cfasync="false"></script>
-    <script
-      data-cfasync="false"
-      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-    ></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

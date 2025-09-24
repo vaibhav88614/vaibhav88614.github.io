@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 220 13% 18%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 13% 18%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 13% 18%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 45 100% 51%;
+    --primary-foreground: 220 13% 18%;
+
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 45 100% 51%;
+
+    --radius: 0.5rem;
+
+    /* Portfolio specific colors */
+    --tech-blue: 220 100% 50%;
+    --tech-cyan: 180 100% 50%;
+    --tech-purple: 270 100% 50%;
+    --tech-green: 120 100% 50%;
+    --tech-orange: 30 100% 50%;
+    
+    /* Network animation colors */
+    --network-node: 210 40% 98%;
+    --network-line: 210 40% 40%;
+    
+    --sidebar-background: 220 13% 18%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 45 100% 51%;
+    --sidebar-primary-foreground: 220 13% 18%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 45 100% 51%;
+  }
+
+  .dark {
+    --background: 220 13% 18%;
+    --foreground: 210 40% 98%;
+    --card: 220 13% 18%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 13% 18%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 220 13% 18%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 45 100% 51%;
+    --sidebar-background: 220 13% 18%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 45 100% 51%;
+    --sidebar-primary-foreground: 220 13% 18%;
+    --sidebar-accent: 217 32% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 32% 17%;
+    --sidebar-ring: 45 100% 51%;
+  }
+}
+
+/* Network animation styles */
+.network-bg {
+  background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.3) 0%, transparent 50%);
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
