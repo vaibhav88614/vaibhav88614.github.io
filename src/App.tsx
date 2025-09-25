@@ -17,21 +17,10 @@ const App = () => {
   console.log('DEBUG: App rendered, open state =', open);
   return (
     <>
-      <div style={{ background: '#f00', color: '#fff', padding: '12px', fontWeight: 'bold', fontSize: '18px', textAlign: 'center', zIndex: 9999 }}>
-        DEBUG: App.tsx is being rendered!
-      </div>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          {/* DEBUG: Dialog Render Check */}
-          <div style={{ background: '#ff0', color: '#000', padding: '8px', marginBottom: '8px' }}>
-            DEBUG: Dialog should render below (open: {open ? 'true' : 'false'})
-          </div>
-          {/* DEBUG: Dialog Component Mount Check */}
-          <div style={{ background: '#0ff', color: '#000', padding: '8px', marginBottom: '8px' }}>
-            DEBUG: Dialog component is about to mount
-          </div>
           {/* Friendly pop-up dialog */}
           <Dialog open={open} onOpenChange={(val) => { console.log('DEBUG: Dialog onOpenChange', val); setOpen(val); }}>
             <DialogContent>
