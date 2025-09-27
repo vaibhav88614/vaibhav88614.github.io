@@ -17,7 +17,8 @@
     "legacy:move": "powershell -ExecutionPolicy Bypass -File move-legacy-build.ps1",
     "legacy:clean": "powershell -ExecutionPolicy Bypass -File cleanup-build-artifacts.ps1",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lock:public": "node scripts/lock-normalize.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

@@ -21,6 +21,16 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Normalize lockfile (public registry)
+        run: |
+          npm install --no-save prettier@latest > /dev/null 2>&1 || true
+          node scripts/lock-normalize.mjs || true
+          if grep -R "info-artifactory.gm.com" package-lock.json; then echo "Found corporate host in lockfile"; exit 1; fi
+
+      - name: Show registry
+        run: npm config get registry
 
       - name: Install dependencies
         run: npm ci
