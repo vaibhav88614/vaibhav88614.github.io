@@ -20,9 +20,9 @@ function main() {
     process.exit(1);
   }
 
-  if (!raw.includes(CORPORATE_HOST) && !/https?:\/\/[^\n]+artifactory[^\n]+/i.test(raw)) {
-    console.log('[lock-normalize] No internal registry URLs detected.');
-    return;
+  const hasCorporate = raw.includes(CORPORATE_HOST) || /https?:\/\/[^\n]+artifactory[^\n]+/i.test(raw);
+  if (!hasCorporate) {
+    console.log('[lock-normalize] No internal host URLs detected (will still scan for malformed public URLs).');
   }
 
   // Strategy: JSON parse & walk dependencies rewriting `resolved` fields OR fast regex swap.
@@ -36,6 +36,9 @@ function main() {
   }
 
   let replaced = 0;
+  let repaired = 0;
+
+  const MALFORMED_RE = /^(https:\/\/registry\.npmjs\.org\/)([^\/@]+)(?:-)(\d+[^\/]*\.tgz)$/; // e.g. registry.npmjs.org/postcss-8.5.6.tgz
 
   function rewriteDeps(obj) {
     if (!obj || typeof obj !== 'object') return;
@@ -45,6 +48,25 @@ function main() {
         obj.resolved = before.replace(/https?:\/\/[^/]+\/artifactory\/api\/npm\/npmjs\.org\//, PUBLIC_REGISTRY);
         if (before !== obj.resolved) replaced++;
       }
+      // Repair malformed public URLs missing the '/<name>/-/<file>' structure
+      // Correct pattern should be: https://registry.npmjs.org/<pkg>/-/<pkg>-<version>.tgz
+      if (before.startsWith(PUBLIC_REGISTRY) && before.includes('-') && !/\/ - \/|\/-\//.test(before)) {
+        // Quick opt-out: if it already contains '/-/' it's fine
+        if (!before.includes('/-/')) {
+          // Attempt structured reconstruction
+          const tail = before.slice(PUBLIC_REGISTRY.length); // e.g. autoprefixer-10.4.21.tgz
+          const m = tail.match(/^(?:@?[^\/]+?)(?:-\d.*\.tgz)$/) ? null : null; // placeholder (unused but kept for clarity)
+        }
+      }
+      if (!before.includes('/-/')) {
+        const simple = before.match(/^(https:\/\/registry\.npmjs\.org\/)(@?[^\/]+?)-(\d[^\/]*\.tgz)$/);
+        if (simple) {
+          const [, root, name, filePart] = simple;
+            // filePart already contains version+ .tgz, reconstruct canonical path
+            obj.resolved = `${root}${name}/-/${name}-${filePart}`;
+            if (before !== obj.resolved) repaired++;
+        }
+      }
     }
     for (const k of Object.keys(obj)) rewriteDeps(obj[k]);
   }
@@ -52,11 +74,14 @@ function main() {
   rewriteDeps(json.packages);
   rewriteDeps(json.dependencies);
 
-  if (replaced === 0) {
-    console.log('[lock-normalize] Corporate host present in file but no resolvable entries updated. Check pattern.');
+  if (replaced === 0 && repaired === 0) {
+    console.log('[lock-normalize] No changes (host rewrites or repairs) applied.');
   } else {
     writeFileSync(LOCK_PATH, JSON.stringify(json, null, 2) + '\n');
-    console.log(`[lock-normalize] Rewrote ${replaced} resolved URL(s) to public registry.`);
+    const parts = [];
+    if (replaced) parts.push(`${replaced} host rewrite${replaced===1?'':'s'}`);
+    if (repaired) parts.push(`${repaired} malformed URL repair${repaired===1?'':'s'}`);
+    console.log(`[lock-normalize] Applied ${parts.join(' and ')}.`);
   }
 }
 
