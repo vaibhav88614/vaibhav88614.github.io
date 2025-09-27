@@ -153,6 +153,37 @@ Keep normal usage so consistency & cleanliness are preserved.
 
 ---
 
+## 🌓 Theme Toggle
+
+The theme toggle stores the user's choice in `localStorage` under `theme-preference` and applies it early via an inline script in `index.html` to prevent a flash of incorrect theme (FOUC). Logic:
+
+1. If a stored value exists (`dark` or `light`) it wins.
+2. Otherwise system preference (`prefers-color-scheme`) decides.
+3. Toggle button adds/removes the `dark` class on `<html>` and updates storage.
+
+If you change the storage key, also update the inline script in `index.html` and `ThemeToggle.tsx`.
+
+---
+
+## ✉️ Contact Form (Formspree)
+
+The contact form posts to a Formspree endpoint if configured. To enable:
+
+1. Create a form at https://formspree.io/ (Dashboard → New Form).
+2. Copy the endpoint URL (looks like `https://formspree.io/f/<id>`).
+3. Create a `.env.local` file (ignored by git) based on `.env.example`:
+	```env
+	VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourid
+	```
+4. Restart the dev server so Vite picks up the new env var.
+5. Submit the form; you should see success UI and an email / dashboard entry in Formspree.
+
+If `VITE_FORMSPREE_ENDPOINT` is empty the UI shows a configuration error when submitting.
+
+Production: Add the same variable in your GitHub Pages build environment (if using a workflow) or bake it at build time before deploying.
+
+---
+
 ## ✨ Typography
 The `@tailwindcss/typography` plugin is enabled; customize via `typography.css` and apply with the `prose` class.
 

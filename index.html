@@ -17,6 +17,20 @@
     <meta name="twitter:site" content="@vaibhavpatil" />
   <meta name="twitter:image" content="/images/profile-photo.jpg" />
     <!-- Vite dev entry: during development Vite injects module graph; during build it will rewrite to hashed assets in docs/ -->
+    <!-- Early theme application to avoid flash -->
+    <script>
+      (function() {
+        try {
+          var storageKey = 'theme-preference';
+          var stored = localStorage.getItem(storageKey);
+            if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+        } catch(e) { /* ignore */ }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
     <!-- No static CSS link needed: Tailwind & component styles are bundled by Vite -->
   </head>
