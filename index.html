@@ -16,8 +16,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@vaibhavpatil" />
     <meta name="twitter:image" content="/assets/profile-photo.jpg" />
-    <script type="module" crossorigin src="/assets/index-oEzW28Vq.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C_8c8m5x.css">
+    <!-- Vite dev entry: during development Vite injects module graph; during build it will rewrite to hashed assets in docs/ -->
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- No static CSS link needed: Tailwind & component styles are bundled by Vite -->
   </head>
   <body>
     <div id="root"></div>
