@@ -5,6 +5,10 @@
 /* Extend Tailwind base layer */
 @layer base {
   html { scroll-behavior: smooth; }
+  /* Smooth theme transition helper: applied briefly when toggling theme */
+  .theme-transition *:not(img):not(video) {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease, stroke 0.35s ease;
+  }
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));

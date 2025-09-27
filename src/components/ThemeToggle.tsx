@@ -26,7 +26,13 @@ export const ThemeToggle = () => {
     localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
-  const toggle = () => setTheme(t => (t === 'dark' ? 'light' : 'dark'));
+  const toggle = () => {
+    const root = document.documentElement;
+    // Add transition class (idempotent) then remove after duration
+    root.classList.add('theme-transition');
+    window.setTimeout(() => root.classList.remove('theme-transition'), 400);
+    setTheme(t => (t === 'dark' ? 'light' : 'dark'));
+  };
 
   return (
     <Button
