@@ -1,4 +1,5 @@
 import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -8,7 +9,7 @@ export default {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./src/styles/**/*.{css}"
+  "./src/styles/**/*.css"
   ],
   prefix: "",
   theme: {
@@ -106,5 +107,5 @@ export default {
       },
     },
   },
-  plugins: [animate],
+  plugins: [animate, typography],
 } satisfies Config;
