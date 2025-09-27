@@ -38,21 +38,14 @@ function main() {
   let replaced = 0;
 
   function rewriteDeps(obj) {
-    if (obj && typeof obj === 'object') {
-      if (obj.resolved && typeof obj.resolved === 'string' && (obj.resolved.includes(CORPORATE_HOST) || /artifactory/.test(obj.resolved))) {
-        // Extract the package file after last '/'
-        const fileName = obj.resolved.split('/').pop();
-        if (fileName && fileName.includes('.tgz')) {
-          obj.resolved = PUBLIC_REGISTRY + fileName.replace(/^(.*?%-)?/, '');
-          replaced++;
-        } else {
-          // Fallback: generic replace host segment
-          obj.resolved = obj.resolved.replace(/https?:\/\/[^/]+\/artifactory\/api\/npm\/npmjs\.org\//, PUBLIC_REGISTRY);
-          replaced++;
-        }
-      }
-      for (const k of Object.keys(obj)) rewriteDeps(obj[k]);
+    if (!obj || typeof obj !== 'object') return;
+    if (obj.resolved && typeof obj.resolved === 'string') {
+      const before = obj.resolved;
+      // Replace only the host + internal path up to the package scope
+      obj.resolved = obj.resolved.replace(/https?:\/\/[^/]+\/artifactory\/api\/npm\/npmjs\.org\//, PUBLIC_REGISTRY);
+      if (before !== obj.resolved) replaced++;
     }
+    for (const k of Object.keys(obj)) rewriteDeps(obj[k]);
   }
 
   rewriteDeps(json.packages);
