@@ -1,3 +1,6 @@
+###############################################
+# Core ignores
+###############################################
 # Logs
 logs
 *.log
@@ -7,24 +10,38 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
-# dist is needed for GitHub Pages deployment
-# dist-ssr is still ignored
+
+# SSR build (not used)
 dist-ssr
+
+# Local env
 *.local
 
-# Editor directories and files
+# Editor / OS
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-\
-# Build output
+
+###############################################
+# Build artifacts (legacy + current)
+###############################################
 /dist/
-_old-root-build/
-\
+/_old-root-build/
+/_legacy_root_build/
+docs/*.map
+
+# Misc backups
+*.backup
+*.bak
+*.orig
+*.rej
+
