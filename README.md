@@ -1,3 +1,193 @@
+![Portfolio Banner](public/images/developer-illustration.jpg)
+
+# 🚀 Vaibhav's Portfolio
+
+Modern, responsive developer portfolio built with React, Vite, TypeScript, Tailwind CSS (shadcn/ui + Radix primitives), and a clean deployment pipeline via GitHub Pages.
+
+---
+
+## 🖥️ Live Demo
+[View Portfolio](https://vaibhav88614.github.io)
+
+---
+
+## 📦 Tech Stack
+- React (TypeScript)
+- Vite
+- Tailwind CSS + tailwind-merge + tailwindcss-animate + @tailwindcss/typography
+- shadcn/ui + Radix UI primitives
+- React Router, TanStack Query, React Hook Form, Zod
+- PostCSS + Autoprefixer
+- ESLint + TypeScript
+
+---
+
+## 🧩 Features
+- Responsive, accessible UI
+- Structured sections (About, Skills, Projects, Experience, Education, Contact)
+- Design tokens + dark / light (auto) theming via CSS custom properties
+- Single Tailwind entry with modular style layers
+- Asset copy script for stable `/images/*` paths
+- Safe git sync & deploy helper scripts
+
+---
+
+## 📁 Structure
+```
+src/
+	assets/              # Source images (originals)
+	styles/
+		index.css          # Tailwind directives + imports
+		design-tokens.css  # Theme variables (dark default + auto light)
+		base.css           # Global resets/base overrides
+		animations.css     # Animation utilities
+		typography.css     # Prose styling overrides
+	components/          # UI + shadcn components
+		ui/                # Primitive components
+	hooks/               # Custom hooks
+	lib/                 # Utilities
+	pages/               # Page-level components
+	main.tsx             # App entry
+public/
+	images/              # Copied images (runtime served)
+docs/                  # Build output (GitHub Pages)
+```
+
+### Style Layering
+- Only `index.css` contains `@tailwind` directives.
+- Tokens first, then base/animations/typography imports.
+- All colors HSL via CSS custom properties.
+
+### Theming
+- Default: dark token set.
+- Light mode: activated automatically with `prefers-color-scheme: light` when `.dark` class not present.
+- Forced dark: add `.dark` class on `<html>` or a wrapper (e.g. using next-themes / manual toggle).
+
+---
+
+## 🛠️ Development
+```powershell
+git clone https://github.com/vaibhav88614/vaibhav88614.github.io.git
+cd vaibhav88614.github.io
+npm install
+npm run dev
+```
+Production build:
+```powershell
+npm run build
+```
+
+Formatting (Prettier):
+```powershell
+npm run format
+```
+
+Lint:
+```powershell
+npm run lint
+```
+
+---
+
+## 🚀 Deployment (GitHub Pages /docs)
+Configured to output to `docs/`. Pages settings: Branch `main`, Folder `/docs`.
+```powershell
+npm run build
+./deploy.ps1
+```
+Force:
+```powershell
+./deploy.ps1 -Force
+```
+Custom domain: add `docs/CNAME`.
+
+---
+
+## 🧰 Utility Scripts
+| Script | Purpose |
+|--------|---------|
+| `organize-assets.ps1` | Copy images to `public/images` |
+| `safe-sync.ps1` | Stash + rebase + restore changes |
+| `cleanup-build-artifacts.ps1` | Move stray hashed root build files |
+| `move-legacy-build.ps1` | Archive legacy `assets/` bundle |
+| `deploy.ps1` | Commit changed `docs/` output |
+
+NPM aliases:
+```
+assets        -> organize-assets.ps1
+assets:force  -> organize-assets.ps1 -Force
+sync          -> safe-sync.ps1
+deploy:ps     -> deploy.ps1
+legacy:move   -> move-legacy-build.ps1
+legacy:clean  -> cleanup-build-artifacts.ps1
+format        -> prettier --write .
+```
+
+---
+
+## ✨ Typography
+The `@tailwindcss/typography` plugin is enabled; customize via `typography.css` and apply with the `prose` class.
+
+---
+
+## 🌓 Theming Model
+Tokens: `design-tokens.css` defines base + `.dark` + auto light media query.
+You can add a theme switcher by toggling `.dark` on the root element and persisting user preference (e.g. localStorage or `next-themes`).
+
+---
+
+## 🛠️ Editor Setup
+- VS Code settings included to silence unknown Tailwind at-rule warnings.
+- Stylelint config ignores Tailwind-specific at-rules without extra plugin overhead.
+- Only import `styles/index.css` once to avoid duplicate layers.
+
+---
+
+## 🌟 Screenshots
+![Hero Section](public/images/developer-illustration.jpg)
+![Projects Section](public/images/blog-project.jpg)
+
+---
+
+## 🤝 Connect
+- [GitHub](https://github.com/vaibhav88614)
+- [LinkedIn](#)
+- [Email](mailto:your.email@example.com)
+
+---
+
+## 📄 License
+MIT © 2025 Vaibhav
+
+---
+
+> Designed & developed by Vaibhav
+
+
+
+## How can I edit this code?
+
+There are several ways of editing your application.
+
+
+
+
+
+
+
+**Use your preferred IDE**
+
+
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
 # Welcome to your project
 
 ## Project info
@@ -7,8 +197,6 @@
 ## How can I edit this code?
 
 There are several ways of editing your application.
-
-
 
 
 
@@ -44,7 +232,7 @@ This project is built with:
 - Vite
 - TypeScript
 - React
-[![Portfolio Banner](src/assets/developer-illustration.jpg)](https://vaibhav88614.github.io)
+[![Portfolio Banner](public/images/developer-illustration.jpg)](https://vaibhav88614.github.io)
 
 # 🚀 Vaibhav's Portfolio
 
@@ -209,8 +397,8 @@ Then reference them in code or meta tags as `/images/<name>`.
 
 ## 🌟 Screenshots
 
-![Hero Section](src/assets/developer-illustration.jpg)
-![Projects Section](src/assets/blog-project.jpg)
+![Hero Section](public/images/developer-illustration.jpg)
+![Projects Section](public/images/blog-project.jpg)
 
 ---
 
@@ -222,23 +410,26 @@ Then reference them in code or meta tags as `/images/<name>`.
 
 ---
 
-## 📄 License
+## �️ Editor Tailwind Setup
+
+If your editor flags `@tailwind`, `@apply`, or `@layer` as unknown:
+- VS Code: ensure Tailwind CSS IntelliSense extension is installed
+- We ship `.vscode/settings.json` that sets `css.lint.unknownAtRules` to `ignore`
+- `.stylelintrc.json` ignores Tailwind-specific at-rules
+- Only import `src/styles/index.css` once (it contains directives + imports)
+- Keep custom CSS variables in `design-tokens.css`; avoid spreading `@tailwind` directives across files
+
+Re-run the dev server after changing Tailwind config so class generation updates.
+
+---
+
+## �📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
 > Designed & developed by Vaibhav
-- Tailwind CSS
-
-## How can I deploy this project?
-
-
-
-
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Tailwind CSS
 
 
