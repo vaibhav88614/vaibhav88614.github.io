@@ -41,9 +41,10 @@ function main() {
     if (!obj || typeof obj !== 'object') return;
     if (obj.resolved && typeof obj.resolved === 'string') {
       const before = obj.resolved;
-      // Replace only the host + internal path up to the package scope
-      obj.resolved = obj.resolved.replace(/https?:\/\/[^/]+\/artifactory\/api\/npm\/npmjs\.org\//, PUBLIC_REGISTRY);
-      if (before !== obj.resolved) replaced++;
+      if (/artifactory/.test(before)) {
+        obj.resolved = before.replace(/https?:\/\/[^/]+\/artifactory\/api\/npm\/npmjs\.org\//, PUBLIC_REGISTRY);
+        if (before !== obj.resolved) replaced++;
+      }
     }
     for (const k of Object.keys(obj)) rewriteDeps(obj[k]);
   }
