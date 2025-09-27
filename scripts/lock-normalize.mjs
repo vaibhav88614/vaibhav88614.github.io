@@ -7,7 +7,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const LOCK_PATH = 'package-lock.json';
-const CORPORATE_HOST = 'info-artifactory.gm.com';
+// The hostname to scrub from lockfile (not logged). Provide via env var; fallback to generic pattern.
+const CORPORATE_HOST = process.env.CORPORATE_REGISTRY_HOST || '(internal-artifactory-host)';
 const PUBLIC_REGISTRY = 'https://registry.npmjs.org/';
 
 function main() {
@@ -19,8 +20,8 @@ function main() {
     process.exit(1);
   }
 
-  if (!raw.includes(CORPORATE_HOST)) {
-    console.log('[lock-normalize] No corporate URLs found. Nothing to change.');
+  if (!raw.includes(CORPORATE_HOST) && !/https?:\/\/[^\n]+artifactory[^\n]+/i.test(raw)) {
+    console.log('[lock-normalize] No internal registry URLs detected.');
     return;
   }
 
@@ -38,7 +39,7 @@ function main() {
 
   function rewriteDeps(obj) {
     if (obj && typeof obj === 'object') {
-      if (obj.resolved && typeof obj.resolved === 'string' && obj.resolved.includes(CORPORATE_HOST)) {
+      if (obj.resolved && typeof obj.resolved === 'string' && (obj.resolved.includes(CORPORATE_HOST) || /artifactory/.test(obj.resolved))) {
         // Extract the package file after last '/'
         const fileName = obj.resolved.split('/').pop();
         if (fileName && fileName.includes('.tgz')) {

@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Normalize lockfile & stage it if changed
+npm run lock:public >/dev/null 2>&1 || true
+if git diff --quiet package-lock.json; then
+  echo "[pre-commit] lockfile already normalized"
+else
+  git add package-lock.json
+  echo "[pre-commit] normalized package-lock.json and staged changes"
+fi
+
+# Run lint & typecheck quickly (can skip build for speed)
+npm run lint --silent || exit 1
+npm run typecheck --silent || exit 1

@@ -18,7 +18,10 @@
     "legacy:clean": "powershell -ExecutionPolicy Bypass -File cleanup-build-artifacts.ps1",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
-    "lock:public": "node scripts/lock-normalize.mjs"
+    "lock:public": "node scripts/lock-normalize.mjs",
+    "prepare": "husky install",
+    "analyze": "cross-env BUNDLE_ANALYZE=1 vite build",
+    "build:analyze": "npm run analyze"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -89,6 +92,9 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
     "vite": "^5.4.19",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "husky": "^9.1.6",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "cross-env": "^7.0.3"
   }
 }

@@ -27,7 +27,7 @@ jobs:
         run: |
           npm install --no-save prettier@latest > /dev/null 2>&1 || true
           node scripts/lock-normalize.mjs || true
-          if grep -R "info-artifactory.gm.com" package-lock.json; then echo "Found corporate host in lockfile"; exit 1; fi
+          if grep -R "artifactory" package-lock.json; then echo "Found internal host token in lockfile"; exit 1; fi
 
       - name: Show registry
         run: npm config get registry
@@ -49,3 +49,12 @@ jobs:
         with:
           name: docs
           path: docs
+
+      # Optional: future bundle analysis (disabled until script added)
+      # - name: Build with analysis
+      #   run: npm run build:analyze
+      # - name: Upload bundle analysis
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: bundle-analysis
+      #     path: stats

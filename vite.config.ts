@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig(({ mode }) => ({
   base: '/',
@@ -12,8 +13,15 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   plugins: [
-    react()
-  ],
+    react(),
+    process.env.BUNDLE_ANALYZE && visualizer({
+      filename: 'stats/bundle-analysis.html',
+      template: 'treemap',
+      gzipSize: true,
+      brotliSize: true,
+      open: false
+    })
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
