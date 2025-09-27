@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
 
 const ContactSection = () => {
   const contactInfo = [
@@ -40,6 +41,43 @@ const ContactSection = () => {
       color: 'hover:text-blue-400'
     }
   ];
+
+  // Formspree endpoint (replace with your own ID)
+  const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT || '';
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>(
+    'idle'
+  );
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!FORMSPREE_ENDPOINT) {
+      setError('Contact form not configured yet.');
+      return;
+    }
+    setStatus('submitting');
+    setError(null);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+      });
+      if (res.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || 'Failed to send message.');
+        setStatus('error');
+      }
+    } catch (err) {
+      setError('Network error. Please try again later.');
+      setStatus('error');
+    }
+  };
 
   return (
     <section id="contact" className="py-20">
@@ -115,7 +153,7 @@ const ContactSection = () => {
               <CardTitle className="text-2xl">Send me a message</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Name</Label>
@@ -154,9 +192,19 @@ const ContactSection = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                {status === 'success' && (
+                  <p className="text-sm text-green-500">Message sent successfully!</p>
+                )}
+                {status === 'error' && error && (
+                  <p className="text-sm text-red-500">{error}</p>
+                )}
+                <Button
+                  type="submit"
+                  disabled={status === 'submitting'}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-70"
+                >
                   <Send size={20} className="mr-2" />
-                  Send Message
+                  {status === 'submitting' ? 'Sending...' : 'Send Message'}
                 </Button>
               </form>
             </CardContent>

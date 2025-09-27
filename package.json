@@ -15,8 +15,9 @@
     "assets:force": "powershell -ExecutionPolicy Bypass -File organize-assets.ps1 -Force",
     "deploy:ps": "powershell -ExecutionPolicy Bypass -File deploy.ps1",
     "legacy:move": "powershell -ExecutionPolicy Bypass -File move-legacy-build.ps1",
-  "legacy:clean": "powershell -ExecutionPolicy Bypass -File cleanup-build-artifacts.ps1",
-  "format": "prettier --write ."
+    "legacy:clean": "powershell -ExecutionPolicy Bypass -File cleanup-build-artifacts.ps1",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
