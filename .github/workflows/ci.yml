@@ -29,6 +29,18 @@ jobs:
           node scripts/lock-normalize.mjs || true
           if grep -R "artifactory" package-lock.json; then echo "Found internal host token in lockfile"; exit 1; fi
 
+      - name: Validate resolved URL structure
+        run: |
+          # Capture any resolved lines pointing at registry.npmjs.org that are missing the '/-/' path segment
+          MALFORMED=$(grep '"resolved": "https://registry.npmjs.org/' package-lock.json | grep -v '/-/' || true)
+          if [ -n "$MALFORMED" ]; then
+            echo "Malformed resolved URL(s) (missing '/-/' segment) detected:";
+            echo "$MALFORMED";
+            exit 1;
+          else
+            echo "All resolved URLs include expected '/-/' segment.";
+          fi
+
       - name: Show registry
         run: npm config get registry
 
