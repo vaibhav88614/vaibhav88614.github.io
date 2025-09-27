@@ -1,18 +1,24 @@
-import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { resume } from '@/data/resume';
 
 const SkillsSection = () => {
-  const skills = [
-    { name: 'HTML', percentage: 90, color: 'hsl(var(--tech-orange))' },
-    { name: 'CSS', percentage: 82, color: 'hsl(var(--tech-blue))' },
-    { name: 'JavaScript', percentage: 60, color: 'hsl(var(--primary))' },
-    { name: 'Linux', percentage: 73, color: 'hsl(var(--tech-green))' },
-    { name: 'ReactJS', percentage: 55, color: 'hsl(var(--tech-cyan))' },
-    { name: 'Machine Learning', percentage: 75, color: 'hsl(var(--tech-purple))' },
-    { name: 'Python', percentage: 60, color: 'hsl(var(--tech-green))' },
-    { name: 'NodeJS', percentage: 50, color: 'hsl(var(--tech-green))' },
-    { name: 'GitHub', percentage: 70, color: 'hsl(var(--foreground))' },
-    { name: 'C/C++', percentage: 85, color: 'hsl(var(--tech-blue))' },
+  // Simple mapping of known technologies to emoji or short badge; user can replace with SVG icons later
+  const iconMap: Record<string, string> = {
+    Python: '🐍', C: '🔧', 'C++': '➕', Java: '☕', JavaScript: '🟨', PHP: '🐘',
+    'Next.js': 'N', 'React.js': '⚛️', CSS: '🎨', HTML: '🧱', 'Node.js': '🟩', Express: '🚄',
+    Django: '🟢', Flask: '🧪', Qt5: '🖼️', MySQL: '🐬', PostgreSQL: '🐘', REST: '🌐', FastAPI: '⚡',
+    Vite: '⚡', Git: '🔗'
+  };
+
+  const categories = [
+    { label: 'Languages', items: resume.skills.languages },
+    { label: 'Frontend', items: resume.skills.frontend },
+    { label: 'Backend', items: resume.skills.backend },
+    { label: 'Frameworks', items: resume.skills.frameworks },
+    { label: 'Databases', items: resume.skills.databases },
+    { label: 'APIs', items: resume.skills.apis },
+    { label: 'Tools', items: resume.skills.tools },
+    { label: 'Quality & Compliance', items: resume.skills.quality },
   ];
 
   return (
@@ -25,23 +31,24 @@ const SkillsSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {skills.map((skill, index) => (
-            <Card key={skill.name} className="bg-card border-border hover:border-primary/50 transition-colors">
-              <CardHeader className="pb-3">
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-lg">{skill.name}</CardTitle>
-                  <span className="text-sm font-bold text-primary">{skill.percentage}%</span>
-                </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {categories.map(cat => (
+            <Card key={cat.label} className="bg-card border-border hover:border-primary/50 transition-colors">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">{cat.label}</CardTitle>
               </CardHeader>
               <CardContent>
-                <Progress 
-                  value={skill.percentage} 
-                  className="h-3"
-                  style={{
-                    '--progress-background': skill.color,
-                  } as React.CSSProperties}
-                />
+                <ul className="flex flex-wrap gap-2 text-sm">
+                  {cat.items.map(item => {
+                    const icon = iconMap[item] || '•';
+                    return (
+                      <li key={item} className="px-2 py-1 rounded-md bg-secondary/40 text-foreground border border-border/50 flex items-center gap-1">
+                        <span className="text-primary text-sm" aria-hidden="true">{icon}</span>
+                        <span>{item}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </CardContent>
             </Card>
           ))}

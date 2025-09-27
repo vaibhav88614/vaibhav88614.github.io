@@ -1,12 +1,17 @@
-import { Github, Linkedin, Twitter, Heart } from 'lucide-react';
+import { Github, Linkedin, Heart } from 'lucide-react';
+import { resume } from '@/data/resume';
+// lucide-react currently still exports Twitter icon; label it as X
+import { Twitter as XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Footer = () => {
   const socialLinks = [
-  { name: 'GitHub', icon: <Github size={20} />, url: 'https://github.com/vaibhav88614' },
-  { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/vaibhavrp614/' },
-  { name: 'Twitter', icon: <Twitter size={20} />, url: 'https://twitter.com' },
+    { name: 'GitHub', icon: <Github size={20} />, url: 'https://github.com/vaibhav88614' },
+    { name: 'LinkedIn', icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/vaibhavrp614/' },
+    { name: 'X', icon: <XIcon size={20} />, url: 'https://x.com/your-handle' },
   ];
+
+  const lastUpdated = resume.lastUpdated ? new Date(resume.lastUpdated).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
 
   return (
     <footer className="bg-secondary/50 border-t border-border">
@@ -47,9 +52,10 @@ const Footer = () => {
               <Heart size={16} className="text-red-500 fill-current" />
               <span>by Vaibhav Patil</span>
             </p>
-            <p className="text-sm text-muted-foreground mt-1">
-              © 2024 All rights reserved.
-            </p>
+            <p className="text-sm text-muted-foreground mt-1">© {new Date().getFullYear()} All rights reserved.</p>
+            {lastUpdated && (
+              <p className="text-xs text-muted-foreground mt-1">Last Updated: {lastUpdated}</p>
+            )}
           </div>
         </div>
       </div>

@@ -3,6 +3,11 @@
 # 🚀 Vaibhav's Portfolio
 
 Modern, responsive developer portfolio built with React, Vite, TypeScript, Tailwind CSS (shadcn/ui + Radix primitives), and a clean deployment pipeline via GitHub Pages.
+![Banner](src/assets/developer-illustration.jpg)
+
+# 🚀 Vaibhav's Portfolio
+
+Modern, resume‑driven developer portfolio built with React + Vite + TypeScript + Tailwind (shadcn/ui + Radix primitives) and deployed via GitHub Pages (`/docs`).
 
 ---
 
@@ -13,55 +18,87 @@ Modern, responsive developer portfolio built with React, Vite, TypeScript, Tailw
 
 ## 📦 Tech Stack
 - React (TypeScript)
-- Vite
+- Vite build tooling
 - Tailwind CSS + tailwind-merge + tailwindcss-animate + @tailwindcss/typography
-- shadcn/ui + Radix UI primitives
-- React Router, TanStack Query, React Hook Form, Zod
-- PostCSS + Autoprefixer
-- ESLint + TypeScript
+- shadcn/ui (Radix primitives)
+- ESLint (flat config) + Prettier + TypeScript type checking
 
 ---
 
-## 🧩 Features
-- Responsive, accessible UI
-- Structured sections (About, Skills, Projects, Experience, Education, Contact)
-- Design tokens + dark / light (auto) theming via CSS custom properties
-- Single Tailwind entry with modular style layers
-- Asset copy script for stable `/images/*` paths
-- Safe git sync & deploy helper scripts
+## 🧩 Key Features
+- Resume‑driven sections (single source of truth in `src/data/resume.ts`)
+- Dynamic Last Updated & experience duration bar
+- Dark / Light theme toggle (light is default; `.dark` class enables dark)
+- Accessible, responsive UI components
+- Centralized design tokens via CSS custom properties (HSL)
+- Clean GitHub Pages deployment to `docs/`
+- Lockfile URL sanitizer (removes any internal/private registry host traces)
 
 ---
 
-## 📁 Structure
+## 📁 Relevant Structure (trimmed)
 ```
 src/
-	assets/              # Source images (originals)
-	styles/
-		index.css          # Tailwind directives + imports
-		design-tokens.css  # Theme variables (dark default + auto light)
-		base.css           # Global resets/base overrides
-		animations.css     # Animation utilities
-		typography.css     # Prose styling overrides
-	components/          # UI + shadcn components
-		ui/                # Primitive components
-	hooks/               # Custom hooks
-	lib/                 # Utilities
-	pages/               # Page-level components
-	main.tsx             # App entry
+	assets/                    # Source images
+	components/                # Site + UI components
+		ui/                      # shadcn primitives
+	data/
+		resume.ts                # SINGLE SOURCE OF TRUTH for content
+	pages/
+		Index.tsx                # Home page (assembles sections)
+	App.tsx / main.tsx         # Entrypoints
+	index.css                  # Tailwind directives + global styles
 public/
-	images/              # Copied images (runtime served)
-docs/                  # Build output (GitHub Pages)
+	resume.pdf                 # Downloaded resume file (replace with your own)
+docs/                        # Production build output (served by Pages)
 ```
 
-### Style Layering
-- Only `index.css` contains `@tailwind` directives.
-- Tokens first, then base/animations/typography imports.
-- All colors HSL via CSS custom properties.
+---
 
-### Theming
-- Default: dark token set.
-- Light mode: activated automatically with `prefers-color-scheme: light` when `.dark` class not present.
-- Forced dark: add `.dark` class on `<html>` or a wrapper (e.g. using next-themes / manual toggle).
+## 📰 Resume‑Driven Content Model
+All portfolio text/content (except very small static labels) is generated from the exported `resume` object in `src/data/resume.ts`.
+
+### Shape Overview
+```
+export const resume = {
+	lastUpdated: Date,
+	summary: string,
+	skills: { languages: string[]; frontend: string[]; backend: string[]; frameworks: string[]; databases: string[]; apis: string[]; tools: string[]; quality: string[] },
+	education: [{ degree, institution, start, end, gpa }],
+	experience: [{ title, company, location, start, end, bullets: string[] }],
+	projects: [{ name, year, tech: string[], bullets: string[], links: { live: string, source: string } }],
+	certifications: [{ name, link }],
+	contact: { email, portfolio, location, phone }
+}
+```
+
+### Updating Your Info
+1. Edit fields in `src/data/resume.ts`.
+2. Replace `public/resume.pdf` with your actual PDF (keep the filename `resume.pdf` so the download link continues to work).
+3. Adjust the `lastUpdated` date whenever you materially change resume data (or leave it and the site will still build). The footer & top metadata strip both use this value.
+4. Add/remove experiences or education entries as arrays—UI will adapt. Experience duration (years/months) uses ONLY the first experience entry (assumed current / most relevant). Place your current role first.
+5. Project `links.live` and `links.source` currently contain placeholder URLs—swap them with your real deployment and repository URLs. Empty strings will simply render no external buttons (defensive checks can be added if needed).
+6. Certification `link` values can also be placeholders; replace when you have verifiable URLs or badge links.
+
+### Experience Duration Logic
+On the home page metadata bar we compute the elapsed time between the first experience `start` and either now (if `end === 'Present'`) or the parsed `end` date. Format: `Xy Ym` or `Xm` if under a year. If you want cumulative or multiple role logic, extend the calculation in `pages/Index.tsx`.
+
+### Skill Icons
+`SkillsSection.tsx` uses a simple `iconMap` (emoji characters). To customize:
+1. Open `src/components/SkillsSection.tsx`.
+2. Replace an emoji value with any string, or swap the rendering with an imported SVG / Lucide icon.
+3. For richer icons, you can import from `lucide-react` and store JSX in a map instead of strings.
+
+### Adding New Fields
+If you add a new property to `resume`, export a TypeScript type for it and update whichever component consumes it. Centralization ensures consistency.
+
+---
+
+## 🌓 Theming
+- Light theme is default (CSS custom properties on `:root`).
+- Dark theme overrides live under the `.dark` class.
+- The toggle sets `localStorage['theme-preference']` to `light` or `dark` and adds/removes `.dark` on `<html>` early to avoid FOUC.
+Modify behavior in `index.html` inline script + `ThemeToggle` component if you change the storage key.
 
 ---
 
@@ -76,192 +113,86 @@ Production build:
 ```powershell
 npm run build
 ```
-
-Formatting (Prettier):
+Lint & typecheck:
+```powershell
+npm run lint
+```
+Format:
 ```powershell
 npm run format
 ```
 
-Lint:
-```powershell
-npm run lint
-```
-
 ---
 
-## 🚀 Deployment (GitHub Pages /docs)
-Configured to output to `docs/`. Pages settings: Branch `main`, Folder `/docs`.
+## 🚀 Deployment (GitHub Pages `/docs`)
+Vite outputs to `docs/` (see `vite.config.ts`). Configure Pages → Branch: `main`, Folder: `/docs`.
 ```powershell
 npm run build
 ./deploy.ps1
 ```
-Force:
+Force (skips clean working tree check):
 ```powershell
 ./deploy.ps1 -Force
 ```
-Custom domain: add `docs/CNAME`.
+Add a `docs/CNAME` file for a custom domain.
 
 ---
 
-## 🧰 Utility Scripts
-| Script | Purpose |
-|--------|---------|
-| `organize-assets.ps1` | Copy images to `public/images` |
-| `safe-sync.ps1` | Stash + rebase + restore changes |
-| `cleanup-build-artifacts.ps1` | Move stray hashed root build files |
-| `move-legacy-build.ps1` | Archive legacy `assets/` bundle |
-| `deploy.ps1` | Commit changed `docs/` output |
-| `analyze` (npm) | Build with bundle visualizer (outputs `stats/bundle-analysis.html`) |
-
-NPM aliases:
-```
-assets        -> organize-assets.ps1
-assets:force  -> organize-assets.ps1 -Force
-sync          -> safe-sync.ps1
-deploy:ps     -> deploy.ps1
-legacy:move   -> move-legacy-build.ps1
-legacy:clean  -> cleanup-build-artifacts.ps1
-format        -> prettier --write .
-analyze       -> build with bundle treemap (see stats/)
-```
+## 🔐 Lockfile URL Sanitization
+A pre-commit hook normalizes `package-lock.json` to remove any non-public registry hostnames and auto-fixes malformed tarball URLs. CI fails if any resolved URL is missing the expected `/-/` pattern (integrity guard).
 
 ---
 
-## 📊 Bundle Analysis
+## ✅ Git Hooks
+On commit:
+1. Normalize & restage lockfile if changed
+2. ESLint + TypeScript check
+3. (Optional) You can bypass with `--no-verify` (not recommended)
 
-Generate a treemap to inspect bundle size contributions:
+---
 
+## ✉️ Contact Form (Optional)
+If using Formspree, set `VITE_FORMSPREE_ENDPOINT` in an `.env.local` file. Without it, the Contact section will display a configuration warning on submit.
+
+---
+
+## � Bundle Analysis
 ```powershell
 npm run analyze
 ```
-Outputs HTML report at `stats/bundle-analysis.html` (not auto-opened). You can open it in your browser to investigate large dependencies.
+Generates `stats/bundle-analysis.html`.
 
 ---
 
-## ✅ Pre-Commit Automation
-
-The repo uses a lightweight Git hook (Husky) that, on each commit:
-1. Normalizes the lockfile to ensure only public registry tarball URLs are kept.
-2. Auto-stages the lockfile if it changed.
-3. Runs ESLint and TypeScript type checking.
-
-If you ever need to bypass hooks (not recommended):
-```powershell
-git commit -m "msg" --no-verify
-```
-Keep normal usage so consistency & cleanliness are preserved.
+## 🧪 Updating / Extending Projects
+Projects are consumed from `resume.projects`. Each `bullets` array is joined into a description—if you need richer formatting, map them into a list in `ProjectsSection.tsx` instead of joining.
 
 ---
 
-## 🌓 Theme Toggle
-
-The theme toggle stores the user's choice in `localStorage` under `theme-preference` and applies it early via an inline script in `index.html` to prevent a flash of incorrect theme (FOUC). Logic:
-
-1. If a stored value exists (`dark` or `light`) it wins.
-2. Otherwise system preference (`prefers-color-scheme`) decides.
-3. Toggle button adds/removes the `dark` class on `<html>` and updates storage.
-
-If you change the storage key, also update the inline script in `index.html` and `ThemeToggle.tsx`.
+## 🗂️ Replacing the Resume PDF
+Replace `public/resume.pdf` with your own file (keep the same name). The About section & dedicated download buttons automatically reference it.
 
 ---
 
-## ✉️ Contact Form (Formspree)
-
-The contact form posts to a Formspree endpoint if configured. To enable:
-
-1. Create a form at https://formspree.io/ (Dashboard → New Form).
-2. Copy the endpoint URL (looks like `https://formspree.io/f/<id>`).
-3. Create a `.env.local` file (ignored by git) based on `.env.example`:
-	```env
-	VITE_FORMSPREE_ENDPOINT=https://formspree.io/f/yourid
-	```
-4. Restart the dev server so Vite picks up the new env var.
-5. Submit the form; you should see success UI and an email / dashboard entry in Formspree.
-
-If `VITE_FORMSPREE_ENDPOINT` is empty the UI shows a configuration error when submitting.
-
-Production: Add the same variable in your GitHub Pages build environment (if using a workflow) or bake it at build time before deploying.
+## 🛠️ Editor Tips
+- Ensure Tailwind CSS IntelliSense is installed.
+- If you rename or move `index.css`, update imports in `main.tsx`.
+- Keep all Tailwind layer directives consolidated (currently in `index.css`).
 
 ---
 
-## ✨ Typography
-The `@tailwindcss/typography` plugin is enabled; customize via `typography.css` and apply with the `prose` class.
+## 🌐 Social Links
+Footer social array lives in `src/components/FooterNEW.tsx`. Update the placeholder X (formerly Twitter) handle URL when ready.
 
 ---
 
-## 🌓 Theming Model
-Tokens: `design-tokens.css` defines base + `.dark` + auto light media query.
-You can add a theme switcher by toggling `.dark` on the root element and persisting user preference (e.g. localStorage or `next-themes`).
-
----
-
-## 🛠️ Editor Setup
-- VS Code settings included to silence unknown Tailwind at-rule warnings.
-- Stylelint config ignores Tailwind-specific at-rules without extra plugin overhead.
-- Only import `styles/index.css` once to avoid duplicate layers.
-
----
-
-## 🌟 Screenshots
-![Hero Section](public/images/developer-illustration.jpg)
-![Projects Section](public/images/blog-project.jpg)
-
----
-
-## 🤝 Connect
-- [GitHub](https://github.com/vaibhav88614)
-- [LinkedIn](#)
-- [Email](mailto:your.email@example.com)
-
----
-
-## 📄 License
+## 📜 License
 MIT © 2025 Vaibhav
 
 ---
 
 > Designed & developed by Vaibhav
 
-
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-
-
-
-
-
-
-**Use your preferred IDE**
-
-
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-# Welcome to your project
-
-## Project info
-
-
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-
-
-
-
-**Use your preferred IDE**
 
 
 

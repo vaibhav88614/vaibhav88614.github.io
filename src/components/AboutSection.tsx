@@ -1,7 +1,9 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, MapPin, Mail, GraduationCap } from 'lucide-react';
+import { Download, MapPin, Mail, GraduationCap, Briefcase, ArrowRight } from 'lucide-react';
 import profilePhoto from '@/assets/profile-photo.jpg';
+import { resume } from '@/data/resume';
+import { formatExperienceDuration } from '@/lib/utils';
 
 const AboutSection = () => {
   return (
@@ -29,44 +31,71 @@ const AboutSection = () => {
           {/* About Content */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-3xl font-bold text-primary mb-4 flex flex-col leading-tight">I'm <span>0xV41BH4V</span><span className="text-base tracking-widest text-muted-foreground">0xV41BH4V</span></h3>
-              <h4 className="text-xl text-muted-foreground mb-6">
-                 Enthusiast | Web Development & ML 🖥️🤖
-              </h4>
+          <h3 className="text-3xl font-bold text-primary mb-4 flex flex-col leading-tight">Professional Summary</h3>
+          <h4 className="text-xl text-muted-foreground mb-6">Full-Stack & API Focused Developer</h4>
             </div>
 
-            <blockquote className="text-lg italic text-muted-foreground border-l-4 border-primary pl-4 mb-6">
-              "The future belongs to those who believe in the beauty of their dreams." 
-              <span className="block text-sm mt-2">- Eleanor Roosevelt 💭✨</span>
-            </blockquote>
-
-            <p className="text-foreground leading-relaxed">
-               Student @  🎓. Passionate about Web Development & Machine Learning 🚀. 
-              Always eager to explore new technologies and push the boundaries of what's possible! 💡
-            </p>
+            <p className="text-foreground leading-relaxed whitespace-pre-line">{resume.summary}</p>
+            {Array.isArray(resume.experience) && resume.experience.length > 0 && (() => {
+              const exp = resume.experience[0];
+              const duration = formatExperienceDuration(exp.start, exp.end);
+              const visibleBullets = exp.bullets.slice(0, 2);
+              return (
+                <div
+                  className="relative mt-4 p-5 rounded-lg border border-primary/40 bg-gradient-to-br from-background/90 to-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/55 shadow-sm ring-1 ring-border/40 text-sm"
+                  style={{ zIndex: 2 }}
+                  data-testid="about-current-role"
+                >
+                  <p className="font-semibold text-primary tracking-wide mb-1 flex items-center gap-2">
+                    <Briefcase size={14} className="opacity-90" />
+                    Current Role
+                    <span className="text-xs ml-2 px-2 py-0.5 rounded bg-primary/10 text-primary/90 border border-primary/20">{duration}</span>
+                  </p>
+                  <p className="leading-snug">
+                    <strong>{exp.title}</strong> @ {exp.company}
+                    <span className="text-muted-foreground"> ({exp.start} – {exp.end})</span>
+                  </p>
+                  {visibleBullets.length > 0 && (
+                    <ul className="list-disc ml-5 mt-2 space-y-1 text-muted-foreground">
+                      {visibleBullets.map((b,i) => <li key={i}>{b}</li>)}
+                    </ul>
+                  )}
+                  <div className="mt-3 flex items-center gap-4">
+                    <a
+                      href="#experience"
+                      className="group text-xs inline-flex items-center gap-1 text-primary hover:underline"
+                    >
+                      View full experience <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                    </a>
+                  </div>
+                </div>
+              );
+            })()}
 
             <Card className="bg-card border-border">
               <CardContent className="p-6">
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <GraduationCap className="text-primary" size={20} />
-                    <span><strong>College:</strong> </span>
+                    <span><strong>Education:</strong> {resume.education[0].degree.split(',')[0]}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="text-primary" size={20} />
-                    <span><strong>Email:</strong> vaibhavrp614@gmail.com</span>
+                    <span><strong>Email:</strong> {resume.contact.email}</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <MapPin className="text-primary" size={20} />
-                    <span><strong>Place:</strong> Karnataka,India</span>
+                    <span><strong>Location:</strong> {resume.contact.location}</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Download size={20} className="mr-2" />
-              Download Resume
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <a href="/resume.pdf" download>
+                <Download size={20} className="mr-2" />
+                Download Resume
+              </a>
             </Button>
           </div>
         </div>

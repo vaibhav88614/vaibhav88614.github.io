@@ -201,8 +201,9 @@ export const InteractiveBackground: React.FC = () => {
       <button
         type="button"
         onClick={toggleFx}
-        className="absolute top-3 right-3 z-20 text-xs px-2 py-1 rounded bg-secondary/70 hover:bg-secondary transition border border-border backdrop-blur-sm"
+        className="fixed top-16 md:top-14 right-3 z-[60] text-[10px] md:text-xs px-2 py-1 rounded bg-secondary/80 hover:bg-secondary transition border border-border backdrop-blur-md shadow-sm"
         aria-pressed={enabled}
+        aria-label="Toggle background effects"
       >
         {enabled ? 'FX: ON' : 'FX: OFF'}
       </button>

@@ -7,12 +7,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Education', href: '#education' },
-    { name: 'Work', href: '#work' },
     { name: 'Experience', href: '#experience' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Certifications', href: '#certifications' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -37,10 +37,10 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Button */}
+          {/* Single ThemeToggle (visible on all breakpoints) + hamburger on mobile */}
           <div className="flex items-center space-x-2">
             <ThemeToggle />
             <Button
@@ -68,7 +68,7 @@ const Header = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="pt-2 border-t border-border"><ThemeToggle /></div>
+              {/* ThemeToggle removed from mobile menu to avoid duplicate state */}
             </nav>
           </div>
         )}
