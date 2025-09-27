@@ -1,128 +1,13 @@
 
-import { useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Github, Linkedin, Twitter } from 'lucide-react';
 import developerIllustration from '@/assets/developer-illustration.jpg';
+import InteractiveBackground from '@/components/InteractiveBackground';
 
 const HeroSection = () => {
-  // Canvas ref for interactive lines
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  // Store mouse position and lines
-  useEffect(() => {
-  // ...removed console.log
-    const canvas = canvasRef.current;
-  if (!canvas) { /* Canvas ref not found (inside useEffect) */ return; }
-    const ctx = canvas.getContext('2d');
-  if (!ctx) { /* Canvas context not found */ return; }
-    let animationId: number;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-  // ...removed console.log
-    const mouse = { x: width / 2, y: height / 2 };
-    const lines: { x: number; y: number; vx: number; vy: number; hue: number }[] = [];
-    // Initialize lines
-    for (let i = 0; i < 16; i++) {
-      lines.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 1.2,
-        vy: (Math.random() - 0.5) * 1.2,
-        hue: Math.random() * 360,
-      });
-    }
-  // ...removed console.log
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      // HiDPI support
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform
-      ctx.scale(dpr, dpr);
-  // ...removed console.log
-    }
-    resize();
-    window.addEventListener('resize', resize);
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      // Draw lines
-      for (let i = 0; i < lines.length; i++) {
-        const l = lines[i];
-        // Animate
-        l.x += l.vx;
-        l.y += l.vy;
-        // Bounce off edges
-        if (l.x < 0 || l.x > width) l.vx *= -1;
-        if (l.y < 0 || l.y > height) l.vy *= -1;
-        // Attract to mouse
-        const dx = mouse.x - l.x;
-        const dy = mouse.y - l.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (i === 0 && (performance.now() % 60 < 2)) {
-          // Log the first line's position and mouse occasionally
-          // ...removed console.log
-        }
-        if (dist < 180) {
-          l.vx += dx / dist * 0.05;
-          l.vy += dy / dist * 0.05;
-        }
-        // Draw line to mouse if close
-        if (dist < 180) {
-          ctx.save();
-          ctx.strokeStyle = `hsl(${l.hue}, 80%, 60%)`;
-          ctx.globalAlpha = 0.25 + 0.75 * (1 - dist / 180);
-          ctx.beginPath();
-          ctx.moveTo(l.x, l.y);
-          ctx.lineTo(mouse.x, mouse.y);
-          ctx.stroke();
-          ctx.restore();
-        }
-        // Draw node
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(l.x, l.y, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = `hsl(${l.hue}, 80%, 60%)`;
-        ctx.globalAlpha = 0.7;
-        ctx.fill();
-        ctx.restore();
-      }
-      animationId = requestAnimationFrame(draw);
-    }
-    draw();
-    // Mouse move
-    function onMouseMove(e: MouseEvent) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    }
-    // On click, burst lines from mouse
-    function onClick(e: MouseEvent) {
-      for (let i = 0; i < 6; i++) {
-        lines.push({
-          x: e.clientX,
-          y: e.clientY,
-          vx: (Math.random() - 0.5) * 2.5,
-          vy: (Math.random() - 0.5) * 2.5,
-          hue: Math.random() * 360,
-        });
-      }
-      if (lines.length > 32) lines.splice(0, lines.length - 32);
-    }
-    window.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('click', onClick);
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('click', onClick);
-      window.removeEventListener('resize', resize);
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden network-bg">
-      {/* Interactive flowing lines canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" style={{ zIndex: 2, pointerEvents: 'auto' }} />
+      <InteractiveBackground />
       {/* Animated background elements - creative network/cyber effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
         {/* SVG grid background */}
