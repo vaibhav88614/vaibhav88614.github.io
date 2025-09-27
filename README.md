@@ -79,18 +79,35 @@ Welcome to my personal portfolio website! This project showcases my skills, expe
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (Updated)
 
 ```
 src/
-  assets/         # Images and media
-  components/     # Reusable UI components
-	 ui/           # UI primitives (accordion, button, etc.)
-  hooks/          # Custom React hooks
-  lib/            # Utility functions
-  pages/          # Main pages (Index, NotFound)
-public/           # Static files
+	assets/             # Source images (originals)
+	styles/             # Centralized style layers
+		base.css          # Tailwind layers + global base
+		design-tokens.css # CSS custom properties / theme tokens
+		animations.css    # Animation utilities & keyframes
+	components/         # Reusable UI components
+		ui/               # UI primitives (accordion, button, etc.)
+	hooks/              # Custom React hooks
+	lib/                # Utility functions
+	pages/              # Main pages (Index, NotFound)
+	main.tsx            # App entry (imports consolidated styles)
+public/
+	images/             # Deployed static images (copied via organize-assets.ps1)
+docs/                 # Vite build output (served by GitHub Pages)
 ```
+
+### Asset Workflow
+- Keep canonical images in `src/assets/`.
+- Run `./organize-assets.ps1` to copy them into `public/images/` for stable public paths `/images/...`.
+- Build places processed/hased files inside `docs/` automatically.
+
+### Style Workflow
+- Do not add Tailwind directives in scattered files—keep them in `styles/base.css`.
+- Add/modify design tokens in `styles/design-tokens.css`.
+- Add new animations to `styles/animations.css`.
 
 ---
 
@@ -154,6 +171,24 @@ If you previously copied hashed build files (e.g. `index-XYZ.js`) into the repo 
 ```
 
 Moved files live in `_old-root-build/`. Inspect and delete when you're satisfied.
+
+---
+
+## 🗂️ Organizing Assets
+
+To copy all current raw images into `public/images/` (non-destructive):
+
+```powershell
+./organize-assets.ps1
+```
+
+Add `-Force` to overwrite duplicates if filenames collide:
+
+```powershell
+./organize-assets.ps1 -Force
+```
+
+Then reference them in code or meta tags as `/images/<name>`.
 
 ---
 
