@@ -111,6 +111,7 @@ Custom domain: add `docs/CNAME`.
 | `cleanup-build-artifacts.ps1` | Move stray hashed root build files |
 | `move-legacy-build.ps1` | Archive legacy `assets/` bundle |
 | `deploy.ps1` | Commit changed `docs/` output |
+| `analyze` (npm) | Build with bundle visualizer (outputs `stats/bundle-analysis.html`) |
 
 NPM aliases:
 ```
@@ -121,7 +122,34 @@ deploy:ps     -> deploy.ps1
 legacy:move   -> move-legacy-build.ps1
 legacy:clean  -> cleanup-build-artifacts.ps1
 format        -> prettier --write .
+analyze       -> build with bundle treemap (see stats/)
 ```
+
+---
+
+## 📊 Bundle Analysis
+
+Generate a treemap to inspect bundle size contributions:
+
+```powershell
+npm run analyze
+```
+Outputs HTML report at `stats/bundle-analysis.html` (not auto-opened). You can open it in your browser to investigate large dependencies.
+
+---
+
+## ✅ Pre-Commit Automation
+
+The repo uses a lightweight Git hook (Husky) that, on each commit:
+1. Normalizes the lockfile to ensure only public registry tarball URLs are kept.
+2. Auto-stages the lockfile if it changed.
+3. Runs ESLint and TypeScript type checking.
+
+If you ever need to bypass hooks (not recommended):
+```powershell
+git commit -m "msg" --no-verify
+```
+Keep normal usage so consistency & cleanliness are preserved.
 
 ---
 
