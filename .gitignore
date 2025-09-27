@@ -1,4 +1,30 @@
-###############################################
+node_modules/
+.DS_Store
+dist/
+*.log
+*.tgz
+coverage/
+temp/
+tmp/
+# Keep docs (GitHub Pages build) tracked intentionally
+!docs/
+docs/*.map
+docs/**/*.map
+/.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.local
+*.env
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini###############################################
 # Core ignores
 ###############################################
 # Logs
